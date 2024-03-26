@@ -1,5 +1,8 @@
+import 'package:cheq/TestFile.dart';
 import 'package:cheq/generated/assets.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 import '../common/textStyle.dart';
 
@@ -44,20 +47,32 @@ class _PermissionScreenState extends State<PermissionScreen> {
             height: 30,
           ),
           SizedBox(
-            width : MediaQuery.of(context).size.width * 0.7,
+            width: MediaQuery.of(context).size.width * 0.7,
             child: ElevatedButton(
-
               style: ElevatedButton.styleFrom(
                 elevation: 0,
                 foregroundColor: Colors.black,
                 backgroundColor: const Color(0xff66FFB6), // foreground
               ),
-              onPressed: () { },
+              onPressed: () {
+                requestPermission();
+              },
               child: const Text('Grant Access'),
             ),
           )
         ],
       ),
     );
+  }
+
+  Future<void> requestPermission() async {
+    await Permission.photos
+        .onDeniedCallback(() {})
+        .onGrantedCallback(() {
+          Get.offAll(const TestPage());
+        })
+        .onPermanentlyDeniedCallback(() {})
+        .onRestrictedCallback(() {})
+        .request();
   }
 }
