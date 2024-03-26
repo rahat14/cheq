@@ -1,5 +1,5 @@
-import 'package:cheq/TestFile.dart';
 import 'package:cheq/generated/assets.dart';
+import 'package:cheq/ui/screens/homepage/HomePage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -69,7 +69,7 @@ class _PermissionScreenState extends State<PermissionScreen> {
     await Permission.photos
         .onDeniedCallback(() {})
         .onGrantedCallback(() {
-          Get.offAll(const TestPage());
+          Get.offAll(const HomePage());
         })
         .onPermanentlyDeniedCallback(() {})
         .onRestrictedCallback(() {})
