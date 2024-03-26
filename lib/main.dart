@@ -1,3 +1,4 @@
+import 'package:cheq/ui/screens/PremissionScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -15,7 +16,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       title: 'Cheq Test',
-      home: const Placeholder(),
+      home: const PermissionScreen(),
       debugShowCheckedModeBanner: false,
       transitionDuration: const Duration(milliseconds: 500),
       navigatorKey: Get.key,
