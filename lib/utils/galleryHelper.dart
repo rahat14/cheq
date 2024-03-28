@@ -11,18 +11,25 @@ Future<List<String>> fetchImagesFromDirectory(
     List<FileSystemEntity> entities = directory.listSync(followLinks: false);
 
     // Calculate start and end indices based on page and pageSize
-    int start = page * 48;
+    int start = page == 1 ? 0 : page * 48;
     int end = (page + 1) * 48;
+
+
 
     for (int i = start; i < end && i < entities.length; i++) {
       FileSystemEntity entity = entities[i];
+
+      print(entity.path);
+      print("object-------------->");
       if (entity is File &&
-          (entity.path.endsWith('.jpg') ||
-              entity.path.endsWith('.png') ||
-              entity.path.endsWith('.jpeg'))) {
+          (entity.path.toLowerCase().endsWith('.jpg') ||
+              entity.path.toLowerCase().endsWith('.png') ||
+              entity.path.toLowerCase().endsWith('.jpeg'))) {
         imageBytesList.add(entity.path);
       }
     }
+  } else {
+    print("does not exits");
   }
 
   return imageBytesList;
@@ -43,14 +50,19 @@ Future<List<Uint8List>> fetchImagesFromDirectoryPaginated(
 
     for (int i = start; i < end && i < entities.length; i++) {
       FileSystemEntity entity = entities[i];
+      print(entities.length);
+      print("object");
+
       if (entity is File &&
-          (entity.path.endsWith('.jpg') ||
-              entity.path.endsWith('.png') ||
-              entity.path.endsWith('.jpeg'))) {
+          (entity.path.toLowerCase().endsWith('.jpg') ||
+              entity.path.toLowerCase().endsWith('.png') ||
+              entity.path.toLowerCase().endsWith('.jpeg'))) {
         Uint8List bytes = await entity.readAsBytes();
         imageBytesList.add(bytes);
       }
     }
+  } else {
+    print("erm");
   }
 
   return imageBytesList;

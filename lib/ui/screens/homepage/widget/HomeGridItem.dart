@@ -10,6 +10,7 @@ class HomePageGridItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print(item.album.path);
     return ClipRRect(
       borderRadius: BorderRadius.circular(6),
       child: Stack(

@@ -19,8 +19,8 @@ class GalleryScreen extends StatefulWidget {
 }
 
 class _GalleryScreenState extends State<GalleryScreen> {
-  ScrollController _scrollController = ScrollController();
-  int page = 1;
+  final ScrollController _scrollController = ScrollController();
+  int page = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -63,6 +63,7 @@ class _GalleryScreenState extends State<GalleryScreen> {
   void initState() {
     super.initState();
     Get.find<GalleryController>().getGalleryData(widget.directory.album.path);
+    print(widget.directory.album.path);
 
     _scrollController.addListener(() {
       if (_scrollController.position.pixels ==
