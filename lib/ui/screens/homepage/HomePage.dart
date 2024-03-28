@@ -1,3 +1,4 @@
+import 'package:cheq/ui/screens/gallery/GalleryScreen.dart';
 import 'package:cheq/ui/screens/homepage/controller/HomeScreenController.dart';
 import 'package:cheq/ui/screens/homepage/widget/HomeGridItem.dart';
 import 'package:flutter/material.dart';
@@ -43,8 +44,15 @@ class _HomePageState extends State<HomePage> {
             itemCount: cont.albumsWithImages.length,
             itemBuilder: (context, index) {
               var album = cont.albumsWithImages[index];
-              return HomePageGridItem(
-                item: album,
+              return InkWell(
+                onTap: () {
+                  Get.to(GalleryScreen(
+                    directory: album,
+                  ));
+                },
+                child: HomePageGridItem(
+                  item: album,
+                ),
               );
             },
           );

@@ -1,4 +1,5 @@
 import 'package:cheq/ui/screens/PremissionScreen.dart';
+import 'package:cheq/ui/screens/gallery/controller/GalleryController.dart';
 import 'package:cheq/ui/screens/homepage/controller/HomeScreenController.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -8,6 +9,7 @@ import 'ui/screens/homepage/HomePage.dart';
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   Get.lazyPut(() => HomeController());
+  Get.lazyPut(() => GalleryController());
 
   runApp(const MyApp());
 }
