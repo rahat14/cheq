@@ -12,11 +12,10 @@ class GalleryGridItem extends StatelessWidget {
     return GridTile(
       child: ClipRRect(
         borderRadius: BorderRadius.circular(6),
-        child: Image.file(
-          File(item),
-          fit: BoxFit.fill,
-            cacheHeight: 150,
-            cacheWidth: 250
+        child: Hero(
+          tag: item,
+          child: Image.file(File(item),
+              fit: BoxFit.fill, cacheHeight: 150, cacheWidth: 250),
         ),
       ),
     );

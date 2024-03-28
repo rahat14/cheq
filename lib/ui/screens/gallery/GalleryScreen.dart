@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:cheq/models/AlbumWithLastImage.dart';
+import 'package:cheq/ui/screens/fullScreenView/FullScreenImage.dart';
 import 'package:cheq/ui/screens/gallery/controller/GalleryController.dart';
 import 'package:cheq/ui/screens/gallery/widget/GalleryItem.dart';
 import 'package:flutter/material.dart';
@@ -39,9 +42,17 @@ class _GalleryScreenState extends State<GalleryScreen> {
                 mainAxisSpacing: 8),
             itemCount: cont.galleryImages.length,
             itemBuilder: (context, index) {
-              var album = cont.galleryImages[index];
-              return GalleryGridItem(
-                item: album,
+              var path = cont.galleryImages[index];
+              return InkWell(
+                onTap: () {
+                  Get.to(FullScreenImage(
+                    link: path,
+                    file: File(path),
+                  ));
+                },
+                child: GalleryGridItem(
+                  item: path,
+                ),
               );
             },
           );
