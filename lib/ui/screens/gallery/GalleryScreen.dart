@@ -45,10 +45,10 @@ class _GalleryScreenState extends State<GalleryScreen> {
               var path = cont.galleryImages[index];
               return InkWell(
                 onTap: () {
-                  Get.to(FullScreenImage(
-                    link: path,
-                    file: File(path),
-                  ));
+                  // Get.to(FullScreenImage(
+                  //   link: path,
+                  //   file: File(path),
+                  // ));
                 },
                 child: GalleryGridItem(
                   item: path,

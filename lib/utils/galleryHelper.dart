@@ -19,8 +19,6 @@ Future<List<String>> fetchImagesFromDirectory(
     for (int i = start; i < end && i < entities.length; i++) {
       FileSystemEntity entity = entities[i];
 
-      print(entity.path);
-      print("object-------------->");
       if (entity is File &&
           (entity.path.toLowerCase().endsWith('.jpg') ||
               entity.path.toLowerCase().endsWith('.png') ||
@@ -36,7 +34,7 @@ Future<List<String>> fetchImagesFromDirectory(
 }
 
 Future<List<Uint8List>> fetchImagesFromDirectoryPaginated(
-    String directoryPath, int page, int pageSize) async {
+    String directoryPath, int page) async {
   List<Uint8List> imageBytesList = [];
 
   late Directory directory = Directory(directoryPath);
@@ -45,13 +43,11 @@ Future<List<Uint8List>> fetchImagesFromDirectoryPaginated(
     List<FileSystemEntity> entities = directory.listSync(followLinks: false);
 
     // Calculate start and end indices based on page and pageSize
-    int start = page * pageSize;
-    int end = (page + 1) * pageSize;
+    int start = page == 1 ? 0 : page * 48;
+    int end = (page + 1) * 48;
 
     for (int i = start; i < end && i < entities.length; i++) {
       FileSystemEntity entity = entities[i];
-      print(entities.length);
-      print("object");
 
       if (entity is File &&
           (entity.path.toLowerCase().endsWith('.jpg') ||

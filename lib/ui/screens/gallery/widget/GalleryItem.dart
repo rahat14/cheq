@@ -1,9 +1,11 @@
 import 'dart:io';
+import 'dart:typed_data';
 
+import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 
 class GalleryGridItem extends StatelessWidget {
-  final String item;
+  final Uint8List item;
 
   const GalleryGridItem({super.key, required this.item});
 
@@ -14,8 +16,8 @@ class GalleryGridItem extends StatelessWidget {
         borderRadius: BorderRadius.circular(6),
         child: Hero(
           tag: item,
-          child: Image.file(File(item),
-              fit: BoxFit.fill, cacheHeight: 150, cacheWidth: 250),
+          child: ExtendedImage.memory(item,
+              fit: BoxFit.fill, cacheHeight: 150, cacheWidth: 250 ,enableMemoryCache: false, ),
         ),
       ),
     );

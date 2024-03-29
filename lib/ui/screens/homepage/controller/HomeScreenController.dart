@@ -2,8 +2,10 @@ import 'dart:io';
 
 import 'package:get/get_state_manager/src/rx_flutter/rx_disposable.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 import '../../../../models/AlbumWithLastImage.dart';
+import '../../../../utils/AlbumService.dart';
 
 class HomeController extends GetxController implements GetxService {
   late Directory storageDirectory;
@@ -65,5 +67,30 @@ class HomeController extends GetxController implements GetxService {
 
     _albumsWithImages = albumsWithImage;
     update();
+  }
+
+
+  // Future<void> _fetchIosAlbumNames() async {
+  //   List<AlbumWithLastImage> tempList = [];
+  //   try {
+  //     var albumData = await AlbumService.getAlbumData();
+  //
+  //     for (AlbumData item in albumData) {
+  //       tempList.add(AlbumWithLastImage(
+  //           name: item.name, image: item.image, album: null, lastImage: null, totalImage: null));
+  //     }
+  //
+  //     setState(() {
+  //       albumsWithImages = tempList;
+  //     });
+  //   } catch (e) {
+  //     print("Failed to get album names: $e");
+  //   }
+  // }
+
+
+ Future<bool> permissionStatus()async{
+    var status = await Permission.camera.status;
+    return status == PermissionStatus.granted ;
   }
 }

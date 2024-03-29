@@ -38,6 +38,7 @@ dependencies:
   permission_handler: ^11.3.0
   get: ^4.6.6
   flutter_native_splash: ^2.4.0
+  extended_image: ^8.2.0
 
 dev_dependencies:
   flutter_test:
