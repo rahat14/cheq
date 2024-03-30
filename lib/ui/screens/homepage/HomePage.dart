@@ -1,6 +1,9 @@
+import 'dart:io';
+
 import 'package:cheq/ui/screens/gallery/GalleryScreen.dart';
 import 'package:cheq/ui/screens/homepage/controller/HomeScreenController.dart';
 import 'package:cheq/ui/screens/homepage/widget/HomeGridItem.dart';
+import 'package:cheq/utils/AlbumService.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -45,10 +48,16 @@ class _HomePageState extends State<HomePage> {
             itemBuilder: (context, index) {
               var album = cont.albumsWithImages[index];
               return InkWell(
-                onTap: () {
-                  Get.to(GalleryScreen(
-                    directory: album,
-                  ));
+                onTap: () async {
+                  if (Platform.isAndroid) {
+                    Get.to(GalleryScreen(
+                      directory: album,
+                      iosDirectoryName: null,
+                    ));
+                  } else {
+                    Get.to(GalleryScreen(
+                      directory: null, iosDirectoryName: album.name,));
+                  }
                 },
                 child: HomePageGridItem(
                   item: album,

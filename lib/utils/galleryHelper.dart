@@ -1,6 +1,10 @@
 import 'dart:io';
 import 'dart:typed_data';
 
+import 'package:flutter/cupertino.dart';
+
+import '../models/ImageObj.dart';
+
 Future<List<String>> fetchImagesFromDirectory(
     String directoryPath, int page) async {
   List<String> imageBytesList = [];
@@ -14,8 +18,6 @@ Future<List<String>> fetchImagesFromDirectory(
     int start = page == 1 ? 0 : page * 48;
     int end = (page + 1) * 48;
 
-
-
     for (int i = start; i < end && i < entities.length; i++) {
       FileSystemEntity entity = entities[i];
 
@@ -27,15 +29,15 @@ Future<List<String>> fetchImagesFromDirectory(
       }
     }
   } else {
-    print("does not exits");
+    debugPrint("does not exits");
   }
 
   return imageBytesList;
 }
 
-Future<List<Uint8List>> fetchImagesFromDirectoryPaginated(
+Future<List<ImageObj>> fetchImagesFromDirectoryPaginated(
     String directoryPath, int page) async {
-  List<Uint8List> imageBytesList = [];
+  List<ImageObj> imageBytesList = [];
 
   late Directory directory = Directory(directoryPath);
 
@@ -53,8 +55,8 @@ Future<List<Uint8List>> fetchImagesFromDirectoryPaginated(
           (entity.path.toLowerCase().endsWith('.jpg') ||
               entity.path.toLowerCase().endsWith('.png') ||
               entity.path.toLowerCase().endsWith('.jpeg'))) {
-        Uint8List bytes = await entity.readAsBytes();
-        imageBytesList.add(bytes);
+        var model = ImageObj(path: entity.path, uint8list: null);
+        imageBytesList.add(model);
       }
     }
   } else {
@@ -62,4 +64,9 @@ Future<List<Uint8List>> fetchImagesFromDirectoryPaginated(
   }
 
   return imageBytesList;
+}
+
+Uint8List fileToUint8List(File file) {
+  List<int> imageBytes = file.readAsBytesSync();
+  return Uint8List.fromList(imageBytes);
 }

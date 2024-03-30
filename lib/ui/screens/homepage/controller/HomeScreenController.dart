@@ -1,11 +1,13 @@
 import 'dart:io';
 
+import 'package:flutter/cupertino.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_disposable.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 import '../../../../models/AlbumWithLastImage.dart';
 import '../../../../utils/AlbumService.dart';
+import '../../../../utils/galleryHelper.dart';
 
 class HomeController extends GetxController implements GetxService {
   late Directory storageDirectory;
@@ -19,6 +21,8 @@ class HomeController extends GetxController implements GetxService {
       fetchAlbumsWithLastImages();
     } else {
       // go to ios
+      // call for  flutter channel
+      _fetchIosAlbumNames();
     }
   }
 
@@ -54,10 +58,11 @@ class HomeController extends GetxController implements GetxService {
             images.sort(
                 (a, b) => b.lastModifiedSync().compareTo(a.lastModifiedSync()));
             File lastImage = images.first;
+            var imageInUnitList = fileToUint8List(lastImage) ;
 
             albumsWithImage.add(AlbumWithLastImage(
                 album: entity,
-                lastImage: lastImage,
+                lastImage: imageInUnitList,
                 name: entity.path.split('/').last,
                 totalImage: images.length));
           }
@@ -70,23 +75,25 @@ class HomeController extends GetxController implements GetxService {
   }
 
 
-  // Future<void> _fetchIosAlbumNames() async {
-  //   List<AlbumWithLastImage> tempList = [];
-  //   try {
-  //     var albumData = await AlbumService.getAlbumData();
-  //
-  //     for (AlbumData item in albumData) {
-  //       tempList.add(AlbumWithLastImage(
-  //           name: item.name, image: item.image, album: null, lastImage: null, totalImage: null));
-  //     }
-  //
-  //     setState(() {
-  //       albumsWithImages = tempList;
-  //     });
-  //   } catch (e) {
-  //     print("Failed to get album names: $e");
-  //   }
-  // }
+  Future<void> _fetchIosAlbumNames() async {
+    List<AlbumWithLastImage> tempList = [];
+    try {
+      var albumData = await AlbumService.getAlbumData();
+
+      for (AlbumData item in albumData) {
+        tempList.add(AlbumWithLastImage(
+            name: item.name, lastImage: item.image, totalImage: item.count ,
+           album: null
+        ));
+      }
+        _albumsWithImages = tempList;
+
+      update();
+
+    } catch (e) {
+      debugPrint("Failed to get album names: $e");
+    }
+  }
 
 
  Future<bool> permissionStatus()async{

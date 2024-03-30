@@ -1,10 +1,10 @@
 import 'dart:io';
+import 'dart:typed_data';
 
 class AlbumWithLastImage {
-  late Directory album;
-  late File lastImage;
+  late Directory? album;
+  late Uint8List lastImage;
   late int totalImage;
-
   late String name;
 
   AlbumWithLastImage(

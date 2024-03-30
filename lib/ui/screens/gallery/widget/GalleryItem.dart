@@ -1,13 +1,15 @@
 import 'dart:io';
 import 'dart:typed_data';
 
+import 'package:cheq/models/ImageObj.dart';
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 
 class GalleryGridItem extends StatelessWidget {
-  final Uint8List item;
+  final ImageObj item;
+  final int index;
 
-  const GalleryGridItem({super.key, required this.item});
+  const GalleryGridItem({super.key, required this.item, required this.index});
 
   @override
   Widget build(BuildContext context) {
@@ -15,9 +17,22 @@ class GalleryGridItem extends StatelessWidget {
       child: ClipRRect(
         borderRadius: BorderRadius.circular(6),
         child: Hero(
-          tag: item,
-          child: ExtendedImage.memory(item,
-              fit: BoxFit.fill, cacheHeight: 150, cacheWidth: 250 ,enableMemoryCache: false, ),
+          tag: index.toString(),
+          child: Platform.isAndroid
+              ? ExtendedImage.file(
+                  item.file,
+                  fit: BoxFit.fill,
+                  cacheHeight: 150,
+                  cacheWidth: 250,
+                  enableMemoryCache: false,
+                )
+              : ExtendedImage.memory(
+                  item.uint8list!,
+                  fit: BoxFit.fill,
+                  cacheHeight: 150,
+                  cacheWidth: 250,
+                  enableMemoryCache: false,
+                ),
         ),
       ),
     );

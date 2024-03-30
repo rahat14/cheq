@@ -10,15 +10,15 @@ class HomePageGridItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(item.album.path);
     return ClipRRect(
       borderRadius: BorderRadius.circular(6),
       child: Stack(
         fit: StackFit.expand,
         children: [
-          Image.file(
+          Image.memory(
             item.lastImage,
             fit: BoxFit.cover,
+
           ),
           Container(
             color: Colors.black.withOpacity(0.4), // Adjust opacity as needed

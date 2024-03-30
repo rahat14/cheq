@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/services.dart';
 
@@ -10,23 +11,39 @@ class AlbumService {
     var m = taskFileUploadRespFromMap(jsonEncode(result));
     return m.data ?? [];
   }
+
+  static Future<Map<String, Uint8List>> getImagesFromAlbum(String albumName) async {
+    final  result = await _channel.invokeMethod('getImagesFromAlbum', albumName);
+
+    Map<String, Uint8List> imagesData = {};
+    result['data'].forEach((key, value) {
+      imagesData[key as String] = base64Decode(value as String);
+    });
+
+
+    return imagesData;
+  }
 }
 
 class AlbumData {
   final String name;
   final Uint8List image;
+  final int count ;
 
-  AlbumData({required this.name, required this.image});
+  AlbumData({required this.name, required this.image , required this.count});
 
   factory AlbumData.fromMap(Map<String, dynamic> json) => AlbumData(
     image:  base64Decode(json['image'] as String),
     name: json["name"],
+    count : json["count"],
+
   );
 
   factory AlbumData.fromJson(Map<String, dynamic> json) {
     return AlbumData(
       name: json['name'] as String,
       image: base64Decode(json['image'] as String),
+      count: json['count'] as int,
     );
   }
 }
@@ -44,3 +61,5 @@ class TaskFileUploadResp {
   );
 
 }
+
+
