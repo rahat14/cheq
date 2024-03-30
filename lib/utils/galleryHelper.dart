@@ -60,7 +60,7 @@ Future<List<ImageObj>> fetchImagesFromDirectoryPaginated(
       }
     }
   } else {
-    print("erm");
+    debugPrint("erm");
   }
 
   return imageBytesList;

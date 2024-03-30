@@ -10,6 +10,4 @@ class ImageObj  {
   ImageObj({required this.path, required this.uint8list});
 
   File get file =>   File(path ?? '');
-
-
 }
