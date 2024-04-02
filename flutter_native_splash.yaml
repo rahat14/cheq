@@ -1,6 +1,6 @@
 flutter_native_splash:
   color: "#ffffff"
-  ios_content_mode: scaleToFill
+  ios_content_mode: center
   image: assets/images/logo.png
 
 
