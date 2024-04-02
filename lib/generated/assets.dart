@@ -2,6 +2,11 @@
 class Assets {
   Assets._();
 
+  static const String fontRobotoBlack = 'assets/font/Roboto-Black.ttf';
+  static const String fontRobotoItalic = 'assets/font/Roboto-Italic.ttf';
+  static const String fontRobotoMedium = 'assets/font/Roboto-Medium.ttf';
+  static const String fontRobotoRegular = 'assets/font/Roboto-Regular.ttf';
+  static const String imagesIosLogo = 'assets/images/ios_logo.png';
   static const String imagesLogo = 'assets/images/logo.png';
   static const String imagesPermissionLogo = 'assets/images/permission_logo.png';
 
