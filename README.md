@@ -1,7 +1,7 @@
-# cheq-test
+# cheq
 ## Project Overview
 
-This Flutter project is an assessment project that demonstrates various features and best practices in Flutter development. The standout feature of this app is that it does not require any external plugin to read gallery data on iOS. The project utilizes the GetX package for state management and the `permission_handler` library for handling permissions.
+This Flutter project is an  project that demonstrates various features and best practices in Flutter development. The standout feature of this app is that it does not require any external plugin to read gallery data on iOS. The project utilizes the GetX package for state management and the `permission_handler` library for handling permissions.
 
 ## Features
 
